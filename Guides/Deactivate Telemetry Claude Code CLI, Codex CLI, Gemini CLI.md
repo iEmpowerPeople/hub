@@ -1,5 +1,6 @@
-```markdown
 # Telemetry & Privacy Setup for Claude, Gemini CLI, and Codex (macOS)
+
+**Telemetry** = automatic background reports your CLI tools send to their companies about how you use them (like which features you click, errors that happen, etc.) - turning it off keeps your usage private.
 
 Goal: Turn off usage tracking ("telemetry") for three AI tools and quickly test that it worked.
 
