@@ -91,6 +91,6 @@ codex --version 2>&1 | grep -i -E 'telemetry|analytics' || echo "Codex: No telem
 ## 5. What to tell an LLM if you're stuck
 
 One-line prompt you can reuse:
-
+```
 “Help me on macOS using Terminal to disable telemetry/analytics for Claude Code CLI, Gemini CLI, and OpenAI Codex CLI by editing ~/.zshrc and ~/.codex/config.toml, and give me simple copy-paste commands plus a way to test that telemetry is off.”
 ```
