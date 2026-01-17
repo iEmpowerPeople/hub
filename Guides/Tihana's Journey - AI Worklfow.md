@@ -131,15 +131,17 @@ When creating repos, think of name carefully. Changing the name later has very t
 ## Data Privacy with CLIs
 ### Claude Code
 - opt out of data usage to train model in broswer account settings
-- disable telemetry using terminal
+- disable telemetry -> [Deactivate Telemetry](https://github.com/iEmpowerPeople/Hub/blob/0c14b3edd68968a545b96d983e554abcabddc978/Guides/Deactivate%20Telemetry%20Claude%20Code%20CLI%2C%20Codex%20CLI%2C%20Gemini%20CLI.md)
 
 ### Gemini
 - opt out of activity tracking
-- disable telemetry using terminal
+- disable telemetry -> [Deactivate Telemetry](https://github.com/iEmpowerPeople/Hub/blob/0c14b3edd68968a545b96d983e554abcabddc978/Guides/Deactivate%20Telemetry%20Claude%20Code%20CLI%2C%20Codex%20CLI%2C%20Gemini%20CLI.md)
 
+  
 ### Codex
 - opt out of data usage to train model in broswer account settings
-- disable telemetry using terminal
+- disable telemetry -> [Deactivate Telemetry](https://github.com/iEmpowerPeople/Hub/blob/0c14b3edd68968a545b96d983e554abcabddc978/Guides/Deactivate%20Telemetry%20Claude%20Code%20CLI%2C%20Codex%20CLI%2C%20Gemini%20CLI.md)
+
 
 ### Command Line - Command Cheat Sheets
 #### git commands
