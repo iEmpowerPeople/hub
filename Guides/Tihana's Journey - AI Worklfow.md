@@ -128,6 +128,19 @@ When creating repos, think of name carefully. Changing the name later has very t
     - Download Gemini CLI + Nano Banana exntension; get free €250 api credits 
     - Download Codex CLI
 
+## Data Privacy with CLIs
+### Claude Code
+- opt out of data usage to train model in broswer account settings
+- disable telemetry using terminal
+
+### Gemini
+- opt out of activity tracking
+- disable telemetry using terminal
+
+### Codex
+- opt out of data usage to train model in broswer account settings
+- disable telemetry using terminal
+
 ### Command Line - Command Cheat Sheets
 #### git commands
 [Downloadable PDF](https://github.com/iEmpowerPeople/Hub/blob/cad1f2083beb1fe27e1dc71ff30beaa549099d38/Guides/Resources/Git%20Cheat%20Sheet.pdf)
