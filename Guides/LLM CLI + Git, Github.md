@@ -95,22 +95,32 @@ Prefer tool-agnostic policy (`AI_RULES.md`) unless a CLI requires a tool-specifi
 ##### Standard Pattern (CLI)
 
 ```bash
-# 1. Create branch
+# 1. LOCAL: Create branch
 git checkout -b feature-name
 
-# 2. Make changes, stage, commit
+# 2. LOCAL: Make changes, stage, commit
 git add .
 git commit -m "Add feature"
 
-# 3. Push branch
+# 3. LOCAL → REMOTE: Push branch to GitHub
 git push -u origin feature-name
 
-# 4. Create PR (requires gh CLI)
+# 4. REMOTE: Create PR on GitHub
 gh pr create --title "Add feature" --body "Description here"
 
-# 5. Merge PR
-gh pr merge --squash  # or --merge, --rebase
+# 5. REMOTE: Merge PR on GitHub
+gh pr merge --merge  # or --squash, --rebase
+
+# 6. LOCAL: Switch to main and pull merged changes from GitHub
+git checkout main
+git pull
+
+# 7. (Optional) Local: Delete local branch (GitHub branch auto-deletes if setting enabled)
+git branch -d feature-name
 ```
+
+**GitHub branch auto-delete** Enable "Automatically delete head branches" in GitHub repo settings (Settings → General → Pull Requests).
+Prevents branch clutter and ensures merged branches clean up automatically.
 
 ##### Branch Timing Visual
 
