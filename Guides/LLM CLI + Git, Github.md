@@ -114,7 +114,13 @@ gh pr merge --merge  # or --squash, --rebase
 # 6. LOCAL: Switch to main and pull merged changes from GitHub
 git checkout main
 git pull
+
+# 7. (Optional) Local: Delete local branch (GitHub branch auto-deletes if setting enabled)
+git branch -d feature-name
 ```
+
+**GitHub branch auto-delete** Enable "Automatically delete head branches" in GitHub repo settings (Settings → General → Pull Requests).
+Prevents branch clutter and ensures merged branches clean up automatically.
 
 ##### Branch Timing Visual
 
