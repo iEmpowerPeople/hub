@@ -86,7 +86,93 @@ Prefer tool-agnostic policy (`AI_RULES.md`) unless a CLI requires a tool-specifi
 
 ---
 
-#### 4) AI CLIs in folders: scope is chosen by *where you launch*
+#### 4) Repo Editing best Practices
+
+##### Universal Workflow (Team + Solo)
+
+**Always branch. Always PR.** One workflow everywhere, consistent muscle memory, preserves discussion history.
+
+##### Standard Pattern (CLI)
+
+```bash
+# 1. Create branch
+git checkout -b feature-name
+
+# 2. Make changes, stage, commit
+git add .
+git commit -m "Add feature"
+
+# 3. Push branch
+git push -u origin feature-name
+
+# 4. Create PR (requires gh CLI)
+gh pr create --title "Add feature" --body "Description here"
+
+# 5. Merge PR
+gh pr merge --squash  # or --merge, --rebase
+```
+
+##### Branch Timing Visual
+
+```
+Timeline:  Edit Files → Stage → Branch? → Commit → Push
+           ├─────────┼────────┼──────────┼────────┼─────→
+           │         │        │          │        │
+Can branch?│   ✓     │   ✓    │    ✓     │   ✓*   │  ✗
+           │         │        │          │        │
+Changes:   │ Unstaged│ Staged │  Staged  │ Locked │ Remote
+           │ (moves) │(moves) │  (moves) │(fixed*)│(fixed)
+```
+*Post-commit: `git reset HEAD~1` → rebranch
+
+##### When Staged Changes Move With You
+
+✓ `git checkout -b new-branch` (creates + switches)
+✓ `git switch -c new-branch` (modern syntax)
+✓ `git checkout existing-branch` (if no conflicts)
+
+✗ After `git commit` (locked to current branch)
+
+##### Late Branch Creation (Valid Until Commit)
+
+```bash
+git add file.md              # Stage first
+git checkout -b feature      # Then branch (staged changes move)
+git commit -m "Add feature"
+```
+
+##### Team vs Solo (Same Workflow, Different Approval)
+
+| Aspect | Team | Solo |
+|--------|------|------|
+| **Branching** | Required | Required |
+| **PR creation** | Required | Required |
+| **Approval** | Others review | Self-approve |
+| **CI/CD** | Blocks merge if fails | Blocks merge if fails |
+| **History** | Discussion preserved | Notes/context preserved |
+
+##### Why Always PR (Even Solo)
+
+- Searchable history ("Why did I change X?")
+- Context preservation (link issues, screenshots)
+- CI/CD validation before merge
+- Practice for team workflows
+- GitHub/GitLab timeline visualization
+
+##### Summary
+
+**Pattern:** Branch → Commit → Push → PR → Merge
+**PR tools:** `gh pr create` (CLI) or GitHub UI
+**Merge options:** `gh pr merge` (CLI) or UI button
+**Staged changes:** Move with you until committed
+
+```
+Golden Rule: Branch everything. PR everything. Zero exceptions.
+```
+
+---
+
+#### 5) AI CLIs in folders: scope is chosen by *where you launch*
 
 **Launch:** Right click repo folder you want to work on -> launch terminal -> launch CLI
 
@@ -113,7 +199,7 @@ If there are several `.claude/` folders in a tree, the CLI usually uses the one 
 
 ---
 
-#### 5) Global vs project policy (and where it can live)
+#### 6) Global vs project policy (and where it can live)
 
 ##### Global policy (your default behavior)
 Use for “how the AI should behave everywhere”:
@@ -145,26 +231,6 @@ CLIs will not “discover” arbitrary Finder locations; they read either:
 
 ---
 
-#### 6) One source of truth across different CLIs
-
-Goal: maintain one policy once; make each tool read it without sharing tool state.
-
-##### Recommended: canonical policy + adapters
-- Canonical: **Global policy (cross-tool):** `~/AI/RULES.md` (any filesystem location is fine); **Project policy:** `project/AI_RULES.md` (commit with repo)
-- Adapters: tool-specific expected paths point to the canonical file.
-
-######## An Option: Symlinks (best default; no tool support required)
-macOS:
-```bash
-ln -s /path/to/RULES.md ~/.claude/rules.md
-ln -s /path/to/RULES.md ~/.codex/rules.md
-```
-Each CLI reads its normal file; the filesystem redirects to the canonical source.
-
-**Do not** force CLIs (eg. `~/.claude/`, `~/.codex/`) to share the same cache/state directory; share only policy.
-
----
-
 #### 7) Agents (programmable workflows): global vs project
 
 Treat **agent definitions** like code if they are text, stable, reviewable.
@@ -183,41 +249,15 @@ Treat **agent definitions** like code if they are text, stable, reviewable.
 
 ---
 
-#### 8) Relocating global tool directories on macOS
+#### 8) One source of truth across different AI CLIs
 
-Most CLIs assume fixed defaults like `~/.claude` and `~/.codex`. If you move them without wiring, tools typically recreate fresh defaults in `~`.
+Mental Model: Have one source of truth for agents, slash commands, skills, hooks, scripts etc. + Adapter (all AI CLIs require different formatting)
 
-##### Safe relocation: move + symlink back
-```bash
-mkdir -p ~/AI
-mv ~/.claude ~/AI/.claude
-mv ~/.codex  ~/AI/.codex
-ln -s ~/AI/.claude ~/.claude
-ln -s ~/AI/.codex  ~/.codex
-```
-Result: clean home directory; zero tool reconfiguration; deterministic paths.
-
-If a CLI supports explicit overrides (flags/env), you may use them, but do not assume autodetection.
+Guide: `/AI CLI agnostic SSOT system.md`
 
 ---
 
-#### 10) Closed-source / regulated environments: why Git might not be the sharing mechanism
-
-In many regulated setups Git is still used (often internally), but constraints may require alternatives:
-- no external remotes; internal-only or air-gapped.
-- restrictions on cloning/replication; controlled storage.
-- approvals enforced via ticketing/CM rather than Git workflows.
-
-When Git isn’t the distribution channel for policy, use controlled delivery:
-- managed dotfiles/config distribution,
-- internal templates,
-- centralized file shares,
-- config management tools.
-The policy/machinery split still applies.
-
----
-
-#### 11) Minimal templates (copy-paste)
+#### 9) File Examples
 
 ##### Global rules (`RULES.md`)
 ```markdown
@@ -267,5 +307,5 @@ tool --system "$rules" "$@"
 - Keep **content** in working tree; keep **history** in `.git/`; keep **assistance** in tool dirs.
 - Commit **policy**; ignore **machinery**.
 - Launch CLIs from **repo root**.
-- One canonical rules/agents source; connect per-tool via **symlinks/wrappers**.
+- One canonical rules/agents source
 - Never share caches as if they were source; GitHub should show intent, not tool exhaust.
