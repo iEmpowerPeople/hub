@@ -6,7 +6,7 @@ A dense, practical model for using LLM CLIs with Git/GitHub.
 
 #### 1) Core model: content, history, assistant/AI
 
-**Repo (concept):** A project folder that tracks its version history and changes over time.
+**Repo (concept):** A storage location for a project that tracks its version history and changes over time (usually with a version control system like Git).
 
 **Directory:** A folder in your file system that can contain files and other folders.
 
