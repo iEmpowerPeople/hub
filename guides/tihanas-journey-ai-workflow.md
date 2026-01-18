@@ -5,6 +5,10 @@
 This document consolidates resources, notes, and practical guidance around working with LLMs to create high grade workflows and outpouts.
 It is intended as a living reference rather than a step‑by‑step tutorial.
 
+## File Naming Best Practices
+- **kebab-case for web files** (`user-profile.css`, `auth-service.ts`) - URL-friendly, matches CSS/HTML conventions, avoids case-sensitivity issues across platforms
+- **No spaces, use separators** (`user_profile.md` or `user-profile.md`, never `user profile.md`) - Spaces break command-line tools and URLs
+
 ---
 
 ## Claude Code Installation
